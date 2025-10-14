@@ -26,14 +26,7 @@ const Navbar = () => {
                    RAFD   
                 </Link>
         </div>
-        <div className="navbar-end">
-            <button className="btn btn-ghost btn-circle">
-                <Link to="/create">
-                    <PlusIcon/>       
-                </Link>
-
-            </button>
-        </div>
+  
     </div>
   )
 }
