@@ -34,8 +34,8 @@ const PostPage = () => {
       {post ? (
         <div className='mx-auto max-w-3xl p-10 rounded-xl mt-6 '>
           <ArrowLeft style={{cursor: "pointer"}} onClick={handleReturnRequest} />
-          <h1 className='text-4xl font-bold mb-4 mt-8 text-orange-500'>{post.title}</h1>
-          <div className='prose max-w-none' dangerouslySetInnerHTML={{ __html: post.content }} />
+          <h1 className='font-clash text-4xl font-bold mb-4 mt-8 text-orange-500'>{post.title}</h1>
+          <div className='font-clash prose max-w-none' dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
       ) : (
         console.log("Loading...")

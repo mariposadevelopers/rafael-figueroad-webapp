@@ -10,7 +10,7 @@ const PostPreviewCard = ({post}) => {
     >
         <div className='card-title card-body p-5 align-bottom flex flex-row w-full items-end '>
             <div className='card-title-wrapper w-80 p-1'>
-                <h3 className='card-title text-base-content text-sm'>{post.title}</h3>
+                <h3 className='font-clash card-title text-base-content text-sm'>{post.title}</h3>
             </div>
         </div> 
 
