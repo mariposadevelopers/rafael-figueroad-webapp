@@ -1,11 +1,35 @@
-import { createContext } from "react";
+import { useState, createContext, useContext } from "react";
+import { loginRequest } from "../api/auth";
 
-export const AuthContext = createContext(); 
+export const AuthContext = createContext();
 
-export const AuthProvider = ({children}) => {
-    return (
-        <AuthContext.Provider value={{}}>
-            {children}
-        </AuthContext.Provider>
-    )
-}
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context)
+    throw new Error("useAuth must be used within an AuthProvider");
+  return context;
+};
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [errors, setErrors] = useState([]);
+
+  const signIn = async (userData) => {
+    try {
+      const res = await loginRequest(userData);
+      setUser(res.data); // data = user info from backend
+      setIsAuthenticated(true);
+      return true; // so we can redirect after login
+    } catch (err) {
+      setErrors(err.response?.data?.message || "Error al iniciar sesión");
+      return false;
+    }
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn, errors }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

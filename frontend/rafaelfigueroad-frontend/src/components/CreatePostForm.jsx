@@ -15,11 +15,14 @@ const CreatePostForm = () => {
         }
         
         try {
-            const res = axios.post("http://localhost:5001/api/posts", {
+            const res = axios.post(
+              "http://localhost:5001/api/posts", 
+              {
                 title,
                 content
-            });
-            toast.success("Publicación creada con éxito."); 
+              },
+              {withCredentials: true});
+          toast.success("Publicación creada con éxito."); 
 
         } catch (error) {
             console.error("Error creating post:", error);

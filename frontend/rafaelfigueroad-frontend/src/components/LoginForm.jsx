@@ -3,7 +3,8 @@ import {useNavigate} from 'react-router'
 import { loginRequest } from "../api/auth";
 import { useState } from "react";
 import toast from 'react-hot-toast'
-const RateLimited = () => {
+import { useAuth } from "../context/AuthContext.jsx";
+const LoginForm = () => {
   const [credentials, setCredentials] = useState({email:"", password:""}); 
   const navigate = useNavigate(); 
 
@@ -13,6 +14,8 @@ const RateLimited = () => {
       [e.target.name]: e.target.value,
     }); 
   };
+
+  const {signIn} = useAuth(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
@@ -24,7 +27,7 @@ const RateLimited = () => {
         toast.error("Ingresa correo y contraseña..."); 
         return; 
       }
-      const response = await loginRequest(credentials);  
+      const response = await signIn(credentials);  
       console.log(response); 
       navigate('/home');
     } catch (err){
@@ -53,4 +56,4 @@ const RateLimited = () => {
   );
 };
 
-export default RateLimited;
+export default LoginForm;
