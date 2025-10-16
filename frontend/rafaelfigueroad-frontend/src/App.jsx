@@ -8,10 +8,10 @@ import { Toaster } from 'react-hot-toast'
 const App = () => {
   return (
     <div>
-    <Toaster position="top-center" reverseOrder={false} />
     <Routes>
       <Route path='/' element={<HomePage />} />
       <Route path='/home' element={<HomePage />} />
+      <Route path='/login' element={<LoginPage/>} />
       <Route path='/create' element={<CreatePage />} />
       <Route path='/posts/:id' element={<PostPage/>} />
     </Routes>

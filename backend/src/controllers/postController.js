@@ -1,5 +1,4 @@
 import Post from "../models/Post.js";
-
 export async function getAllPosts (req, res){
     try {
         const posts = await Post.find();
@@ -23,6 +22,7 @@ export async function getPostById (req, res) {
 
 export async function postPost (req, res) {
     try {
+        console.log(req.user); 
         const {title, content, comments} = req.body; 
         const post = new Post({title, content, comments});
         const savedPost = await post.save(); 

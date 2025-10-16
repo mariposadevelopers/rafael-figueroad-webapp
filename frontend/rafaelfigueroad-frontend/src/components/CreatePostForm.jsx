@@ -13,12 +13,12 @@ const CreatePostForm = () => {
             toast.error("Por favor, completa todos los campos.");
             return;
         }
+        
         try {
             const res = axios.post("http://localhost:5001/api/posts", {
                 title,
                 content
             });
-
             toast.success("Publicación creada con éxito."); 
 
         } catch (error) {

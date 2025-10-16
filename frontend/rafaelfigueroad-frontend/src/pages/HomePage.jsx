@@ -26,7 +26,7 @@ const HomePage = () => {
     <div data-theme="light" className='min-h-screen bg-base-100'>
         <Navbar showCta={true}/>
         <div class='bg-[#f6f6f6f6] p-5 grid grid-cols-4 gap-x-3 gap-y-3 min-h-[500px]'>
-            <div class='rounded-lg row-span-3 col-span-1'>
+            <div className='rounded-lg row-span-3 col-span-1'>
                 <div className='h-full flex items-center justify-center'>
                     <DecorationSquaresItem/>
                 </div>
@@ -44,7 +44,7 @@ const HomePage = () => {
                     Publicaciones 
                 </h2>
                 <p className='font-clash text-lg sm:text-xl font-regular'>
-                    Consulta las publicaciones más recientes.
+                    Consulta las publicaciones más recientes    .
                 </p>                
             </div>
             <div className="mx-auto max-w-6xl p-4 mt-2">

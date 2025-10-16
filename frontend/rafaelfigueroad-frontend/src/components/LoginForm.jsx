@@ -1,25 +1,51 @@
 import React from "react";
 import {useNavigate} from 'react-router'
-
+import { loginRequest } from "../api/auth";
+import { useState } from "react";
+import toast from 'react-hot-toast'
 const RateLimited = () => {
+  const [credentials, setCredentials] = useState({email:"", password:""}); 
   const navigate = useNavigate(); 
 
-  const handleLoginRequest = () => {
-    navigate('/home');
-  }
+  const handleChange = (e) => {
+    setCredentials({
+      ...credentials,
+      [e.target.name]: e.target.value,
+    }); 
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault(); 
+
+    try {
+      const {email, password} = credentials; 
+
+      if (!email || !password) {
+        toast.error("Ingresa correo y contraseña..."); 
+        return; 
+      }
+      const response = await loginRequest(credentials);  
+      console.log(response); 
+      navigate('/home');
+    } catch (err){
+
+      const errorMessage = err.response?.data?.message || "Error de inicio de sesión. Inténtalo de nuevo.";
+      console.error("Login failed:", err);
+      toast.error(errorMessage); 
+    } 
+  }
   return (
-    <div className="bg-[#2121] px-10 w-full rounded-xl">
-        <form className="">
+    <div className="bg-[#2121] px-10 lg:px-[250px] xl:px-[400px] w-full rounded-xl">
+        <form onSubmit={handleSubmit} className="">
           <div>
             <label className="block text-xl font-semibold text-orange-500 mb-3">Email</label>
-            <input className="w-full px-4 py-2" type="text" placeholder="email@provider.com" />
+            <input name="email" value={credentials.email} onChange={handleChange} className="w-full px-4 py-2" type="text" placeholder="email@provider.com" />
           </div>
           <div> 
             <label className="block text-xl font-semibold text-orange-500 mb-3 mt-4">Contraseña</label>
-            <input className="w-full px-4 py-2" type="password" placeholder="*********" />
+            <input name="password" value={credentials.password} onChange={handleChange} className="w-full px-4 py-2" type="password" placeholder="*********" />
           </div>
-          <button onClick={handleLoginRequest} className="block text-xl text-white bg-orange-500 w-full p-2 rounded-xl mt-6">
+          <button type="submit" className="block text-xl text-white bg-orange-500 w-full p-2 rounded-xl mt-6">
             Iniciar Sesión
           </button>
         </form>
