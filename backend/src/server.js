@@ -18,20 +18,36 @@ const app = express();
 connectDb();
 
 const clientUrl = process.env.CLIENT_URL;
+console.log(`client url ${clientUrl}`)
+
+if (process.env.NODE_ENV === "production" && clientUrl) {
+    app.use((req, res, next) => {
+        res.setHeader('Access-Control-Allow-Origin', clientUrl);
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
+        
+        if (req.method === 'OPTIONS') {
+            return res.sendStatus(200);
+        }
+
+        next();
+    });
+}
+
 
 const allowedOrigins = [
     "http://localhost:5173", 
     clientUrl 
 ].filter(Boolean); 
 
+
 app.use(cors({
     origin: (origin, callback) => {
-        if (!origin) return callback(null, true);
-        
-        if (allowedOrigins.includes(origin)) {
+        if (process.env.NODE_ENV !== "production" || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
-            console.log(`CORS Policy: Origin ${origin} not allowed. Allowed: ${allowedOrigins.join(', ')}`);
+            console.log(`CORS Policy: Origin ${origin} not explicitly allowed by Express-CORS.`);
             callback(null, false); 
         }
     },
