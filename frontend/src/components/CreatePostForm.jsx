@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import API_BASE_URL from '../config/apiConfig.js'; 
 
 const CreatePostForm = () => {
   const [title, setTitle] = useState('');
@@ -18,7 +19,7 @@ const CreatePostForm = () => {
 
     try {
       await axios.post(
-        "http://localhost:5001/api/posts",
+        `${API_BASE_URL}/posts`,
         { title, content },
         { withCredentials: true }
       );
@@ -53,7 +54,6 @@ const CreatePostForm = () => {
           />
         </div>
 
-        {/* Align button to the right */}
         <div className="flex justify-end mt-6">
           <button
             type='submit'

@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router';
 import Navbar from '../components/Navbar.jsx';
 import { ArrowLeft } from 'lucide-react';
+import API_BASE_URL from '../config/apiConfig.js'; 
+
 const PostPage = () => {
     const navigate = useNavigate(); 
     const [post, setPost] = useState(null);     
@@ -16,7 +18,7 @@ const PostPage = () => {
     useEffect(() => {
       const fetchPost = async () => {
         try {
-          const response = await axios.get(`http://localhost:5001/api/posts/${id}`);
+          const response = await axios.get(`${API_BASE_URL}/posts/${id}`);
           setPost(response.data);
         } catch (error) {
           console.error('Error fetching post:', error);

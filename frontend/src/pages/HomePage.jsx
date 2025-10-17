@@ -5,13 +5,15 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import DecorationSquaresItem from '../components/DecorationSquaresItem.jsx'
 import ChannelCard from '../components/ChannelCard.jsx'
+import API_BASE_URL from '../config/apiConfig.js'; 
+
 const HomePage = () => {
     const [posts, setPosts] = useState(false); 
 
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const res = await axios.get("http://localhost:5001/api/posts");
+                const res = await axios.get(`${API_BASE_URL}/posts`);
                 setPosts(res.data);
             } catch (error) {
                 console.error('Error fetching posts:', error);
