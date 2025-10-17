@@ -17,21 +17,22 @@ const app = express();
 
 connectDb();
 
+const clientUrl = process.env.CLIENT_URL;
+
 const allowedOrigins = [
     "http://localhost:5173", 
-    process.env.CLIENT_URL,  
+    clientUrl 
 ].filter(Boolean); 
 
 app.use(cors({
-
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
         
         if (allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
-            console.log(`CORS Policy: Origin ${origin} not allowed.`);
-            callback(new Error('Not allowed by CORS'), false);
+            console.log(`CORS Policy: Origin ${origin} not allowed. Allowed: ${allowedOrigins.join(', ')}`);
+            callback(null, false); 
         }
     },
     credentials: true,
